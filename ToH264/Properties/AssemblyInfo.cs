@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("ToH264")]
-[assembly: AssemblyDescription("アプリのスケルトン")]
+[assembly: AssemblyDescription("ffmpegを使ってムービーの変換")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("bry-ful")]
 [assembly: AssemblyProduct("ToH264")]

@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,14 +45,15 @@
 			this.cbIsSameDir = new System.Windows.Forms.CheckBox();
 			this.btnExec = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.cmbDNHD = new System.Windows.Forms.ComboBox();
+			this.cbDNxHD = new System.Windows.Forms.CheckBox();
 			this.numCRF = new System.Windows.Forms.NumericUpDown();
-			this.label4 = new System.Windows.Forms.Label();
+			this.lbCRF = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.numJobCount = new System.Windows.Forms.NumericUpDown();
 			this.btnADD = new System.Windows.Forms.Button();
 			this.btnDelete = new System.Windows.Forms.Button();
 			this.label2 = new System.Windows.Forms.Label();
-			this.cbDNxHD = new System.Windows.Forms.CheckBox();
 			this.ffmpeg_ctrl1 = new ToH264.Ffmpeg_ctrl();
 			this.menuStrip1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -186,9 +188,9 @@
 			this.cbIsSameDir.AutoSize = true;
 			this.cbIsSameDir.Location = new System.Drawing.Point(39, 342);
 			this.cbIsSameDir.Name = "cbIsSameDir";
-			this.cbIsSameDir.Size = new System.Drawing.Size(328, 16);
+			this.cbIsSameDir.Size = new System.Drawing.Size(338, 16);
 			this.cbIsSameDir.TabIndex = 7;
-			this.cbIsSameDir.Text = "ムービーと同じ場所。出力と入力が同じ名前の時は実行しません";
+			this.cbIsSameDir.Text = "ムービーと同じ場所。出力と入力が同じ名前の時は実行しません。.";
 			this.cbIsSameDir.UseVisualStyleBackColor = true;
 			// 
 			// btnExec
@@ -206,9 +208,10 @@
 			// 
 			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox1.Controls.Add(this.cmbDNHD);
 			this.groupBox1.Controls.Add(this.cbDNxHD);
 			this.groupBox1.Controls.Add(this.numCRF);
-			this.groupBox1.Controls.Add(this.label4);
+			this.groupBox1.Controls.Add(this.lbCRF);
 			this.groupBox1.Controls.Add(this.label3);
 			this.groupBox1.Controls.Add(this.numJobCount);
 			this.groupBox1.Controls.Add(this.btnExec);
@@ -217,7 +220,34 @@
 			this.groupBox1.Size = new System.Drawing.Size(556, 133);
 			this.groupBox1.TabIndex = 8;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "H.264 options";
+			this.groupBox1.Text = "Options";
+			// 
+			// cmbDNHD
+			// 
+			this.cmbDNHD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbDNHD.Enabled = false;
+			this.cmbDNHD.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.cmbDNHD.FormattingEnabled = true;
+			this.cmbDNHD.Items.AddRange(new object[] {
+            "1080p DNxHD LB 8bit -コンテ・タイミング撮",
+            "1080p DNxHD HQX 10bit -本撮"});
+			this.cmbDNHD.Location = new System.Drawing.Point(23, 99);
+			this.cmbDNHD.Name = "cmbDNHD";
+			this.cmbDNHD.Size = new System.Drawing.Size(312, 24);
+			this.cmbDNHD.TabIndex = 11;
+			// 
+			// cbDNxHD
+			// 
+			this.cbDNxHD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cbDNxHD.AutoSize = true;
+			this.cbDNxHD.Location = new System.Drawing.Point(23, 77);
+			this.cbDNxHD.Name = "cbDNxHD";
+			this.cbDNxHD.Size = new System.Drawing.Size(178, 16);
+			this.cbDNxHD.TabIndex = 10;
+			this.cbDNxHD.Text = "avid DNxHDを書き出す(*.mov).";
+			this.cbDNxHD.UseVisualStyleBackColor = true;
+			this.cbDNxHD.CheckedChanged += new System.EventHandler(this.cbDNxHD_CheckedChanged);
 			// 
 			// numCRF
 			// 
@@ -239,26 +269,26 @@
 			this.numCRF.TabIndex = 6;
 			this.numCRF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.numCRF.Value = new decimal(new int[] {
-            18,
+            14,
             0,
             0,
             0});
 			// 
-			// label4
+			// lbCRF
 			// 
-			this.label4.AutoSize = true;
-			this.label4.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.label4.Location = new System.Drawing.Point(20, 27);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(251, 16);
-			this.label4.TabIndex = 5;
-			this.label4.Text = "H.264画質crf (小さいほど奇麗なはず)";
+			this.lbCRF.AutoSize = true;
+			this.lbCRF.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.lbCRF.Location = new System.Drawing.Point(20, 27);
+			this.lbCRF.Name = "lbCRF";
+			this.lbCRF.Size = new System.Drawing.Size(251, 16);
+			this.lbCRF.TabIndex = 5;
+			this.lbCRF.Text = "H.264画質crf (小さいほど奇麗なはず)";
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
 			this.label3.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.label3.Location = new System.Drawing.Point(314, 77);
+			this.label3.Location = new System.Drawing.Point(338, 74);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(72, 16);
 			this.label3.TabIndex = 2;
@@ -268,7 +298,7 @@
 			// 
 			this.numJobCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.numJobCount.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.numJobCount.Location = new System.Drawing.Point(317, 95);
+			this.numJobCount.Location = new System.Drawing.Point(341, 95);
 			this.numJobCount.Maximum = new decimal(new int[] {
             8,
             0,
@@ -280,7 +310,7 @@
             0,
             0});
 			this.numJobCount.Name = "numJobCount";
-			this.numJobCount.Size = new System.Drawing.Size(101, 26);
+			this.numJobCount.Size = new System.Drawing.Size(77, 26);
 			this.numJobCount.TabIndex = 3;
 			this.numJobCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.numJobCount.Value = new decimal(new int[] {
@@ -316,31 +346,21 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(16, 45);
+			this.label2.Location = new System.Drawing.Point(20, 37);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(172, 12);
+			this.label2.Size = new System.Drawing.Size(414, 12);
 			this.label2.TabIndex = 1;
-			this.label2.Text = "ffmpeg を使ったエンコードをします。";
-			// 
-			// cbDNxHD
-			// 
-			this.cbDNxHD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.cbDNxHD.AutoSize = true;
-			this.cbDNxHD.Location = new System.Drawing.Point(23, 80);
-			this.cbDNxHD.Name = "cbDNxHD";
-			this.cbDNxHD.Size = new System.Drawing.Size(168, 16);
-			this.cbDNxHD.TabIndex = 10;
-			this.cbDNxHD.Text = "線撮用のDNxHDを書き出す。";
-			this.cbDNxHD.UseVisualStyleBackColor = true;
+			this.label2.Text = "ffmpeg を使ったエンコードをします。ファイルかディレクトリをどらっぐ＆ドロップしてください。.";
 			// 
 			// ffmpeg_ctrl1
 			// 
 			this.ffmpeg_ctrl1.AddButton = this.btnADD;
 			this.ffmpeg_ctrl1.CBIsDNxHD = this.cbDNxHD;
 			this.ffmpeg_ctrl1.CBIsSameDir = this.cbIsSameDir;
-			this.ffmpeg_ctrl1.CRF = 18;
+			this.ffmpeg_ctrl1.CmpDNxHD = this.cmbDNHD;
+			this.ffmpeg_ctrl1.CRF = 14;
 			this.ffmpeg_ctrl1.DeleteButton = this.btnDelete;
+			this.ffmpeg_ctrl1.DNxHD_STYLE = ToH264.DNxHD_STYLE.LB;
 			this.ffmpeg_ctrl1.IsDNxHD = false;
 			this.ffmpeg_ctrl1.IsSameDir = false;
 			this.ffmpeg_ctrl1.JobCount = 1;
@@ -366,10 +386,11 @@
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.lbTargetList);
 			this.Controls.Add(this.menuStrip1);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.menuStrip1;
 			this.MinimumSize = new System.Drawing.Size(600, 500);
 			this.Name = "Form1";
-			this.Text = "H.264への変換";
+			this.Text = "H.264(mp4) / avid DNxHD(mov)への変換";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.menuStrip1.ResumeLayout(false);
@@ -406,10 +427,11 @@
 		private System.Windows.Forms.Button btnDelete;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label lbCRF;
 		private System.Windows.Forms.NumericUpDown numCRF;
 		private Ffmpeg_ctrl ffmpeg_ctrl1;
 		private System.Windows.Forms.CheckBox cbDNxHD;
+		private System.Windows.Forms.ComboBox cmbDNHD;
 	}
 }
 

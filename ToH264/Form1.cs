@@ -61,6 +61,12 @@ namespace ToH264
 				if (ok) ffmpeg_ctrl1.JobCount = v;
 				b = pref.GetBool("IsDNxHD", out ok);
 				if (ok) ffmpeg_ctrl1.IsDNxHD = b;
+				v = pref.GetInt("DNxHD_STYLE", out ok);
+				if (ok)
+				{
+					if (v < 0) v = 0; else if (v > 1) v = 1;
+					ffmpeg_ctrl1.DNxHD_STYLE = (DNxHD_STYLE)v;
+				}
 				
 
 
@@ -84,6 +90,7 @@ namespace ToH264
 			pref.SetInt("CRF", ffmpeg_ctrl1.CRF);
 			pref.SetInt("JobCount", ffmpeg_ctrl1.JobCount);
 			pref.SetBool("IsDNxHD", ffmpeg_ctrl1.IsDNxHD);
+			pref.SetInt("DNxHD_STYLE", (int)ffmpeg_ctrl1.DNxHD_STYLE);
 
 			pref.Save();
 
@@ -140,7 +147,14 @@ namespace ToH264
 			{
 				foreach (string s in cmd)
 				{
-					ffmpeg_ctrl1.AddMovie(s);
+					if (File.Exists(s) == true)
+					{
+						ffmpeg_ctrl1.AddMovie(s);
+					}else if (Directory.Exists(s) == true)
+					{
+						string[] fl = Directory.GetFiles(s);
+						GetCommand(fl);
+					}
 				}
 			}
 		}
@@ -227,6 +241,15 @@ namespace ToH264
 			{
 				ffmpeg_ctrl1.OutputPath = dlg.SelectedPath;
 			}
+		}
+
+		private void cbDNxHD_CheckedChanged(object sender, EventArgs e)
+		{
+			bool b = cbDNxHD.Checked;
+			cbIsSameDir.Enabled = !b;
+			lbCRF.Enabled = !b;
+			numCRF.Enabled = !b;
+			cmbDNHD.Enabled = b;
 		}
 	}
 }

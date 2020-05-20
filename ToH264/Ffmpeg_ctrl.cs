@@ -14,12 +14,42 @@ using BRY;
 
 namespace ToH264
 {
+
+	public enum DNxHD_STYLE
+	{
+		LB=0,
+		HQX
+	}
 	public class Ffmpeg_ctrl : Component
 	{
 		private List<string> m_TargetList = new List<string>();
 
 		private readonly string cmdStr = "\"{0}\" -i \"{1}\" -movflags faststart -y -vcodec libx264 -vf format=yuv420p -crf {2} -acodec libmp3lame \"{3}\"";
-		private readonly string cmdStrDNxHD ="\"{0}\" -i \"{1}\" -c:v dnxhd -vf \"scale=1920:1080,fps=24000/1001,format=yuv422p\" -b:v {2} -c:a pcm_s16le \"{3}\"";
+
+		private readonly string cmdStrDNxHD ="\"{0}\" -i \"{1}\" -c:v dnxhd -vf \"scale=1920:1080,fps=24000/1001,format=yuv422p\" -b:v 90M -c:a pcm_s16le \"{2}\"";
+		private readonly string cmdStrDNxHD2 ="\"{0}\" -i \"{1}\" -c:v dnxhd -vf \"scale=1920:1080,fps=24000/1001,format=yuv422p10le\" -b:v 175M -c:a pcm_s16le \"{2}\"";
+
+		private DNxHD_STYLE m_DNxHD_STYLE = DNxHD_STYLE.LB;
+		public DNxHD_STYLE DNxHD_STYLE
+		{
+			get { return m_DNxHD_STYLE; }
+			set
+			{
+				if (m_DNxHD_STYLE != value)
+				{
+					m_DNxHD_STYLE = value;
+
+					if(m_CmpDNxHD!=null)
+					{
+						if (m_CmpDNxHD.SelectedIndex!= (int)value)
+						{
+							m_CmpDNxHD.SelectedIndex = (int)value;
+						}
+					}
+				}
+			}
+		}
+
 
 		private bool m_IsDNxHD = false;
 		public bool IsDNxHD
@@ -323,6 +353,40 @@ namespace ToH264
 				m_IsDNxHD = m_CBIsDNxHD.Checked;
 			}
 		}
+		// *********************************************************
+		private ComboBox m_CmpDNxHD = null;
+		public ComboBox CmpDNxHD
+		{
+			get { return m_CmpDNxHD; }
+			set
+			{
+				m_CmpDNxHD = value;
+				if(m_CmpDNxHD!=null)
+				{
+					m_CmpDNxHD.Items.Clear();
+					m_CmpDNxHD.Items.AddRange(new object[] {
+					"1080p DNxHD LB 8bit -コンテ・タイミング撮",
+					"1080p DNxHD HQX 10bit -本撮"});
+
+					if (m_CmpDNxHD.SelectedIndex != (int)m_DNxHD_STYLE)
+					{
+						m_CmpDNxHD.SelectedIndex = (int)m_DNxHD_STYLE;
+					}
+					m_CmpDNxHD.SelectedIndexChanged += M_CmpDNxHD_SelectedIndexChanged;
+				}
+
+			}
+		}
+
+		private void M_CmpDNxHD_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			int v = m_CmpDNxHD.SelectedIndex;
+			if (v < 0) v = 0;
+			if (m_DNxHD_STYLE != (DNxHD_STYLE)v)
+			{
+				m_DNxHD_STYLE = (DNxHD_STYLE)v;
+			}
+		}
 
 		// *********************************************************
 		public void ClearTarget()
@@ -390,8 +454,10 @@ namespace ToH264
 		// *********************************************************
 		private string MakeCmd(string s)
 		{
-			//private readonly string cmdStr = "\"{0}\" -i \"{1}\" - y - vcodec libx264 -vf format = yuv420p - crf {2} -acodec libmp3lame \"{3}\"";
-			//private readonly string cmdStrDNxHD ="\"{0}\" -i \"{1}\" -c:v dnxhd -vf \"scale=1920:1080,fps=24000/1001,format=yuv422p\" -b:v {2} -c:a pcm_s16le \"{3}\"";
+		//private readonly string cmdStr = "\"{0}\" -i \"{1}\" -movflags faststart -y -vcodec libx264 -vf format=yuv420p -crf {2} -acodec libmp3lame \"{3}\"";
+
+		//private readonly string cmdStrDNxHD ="\"{0}\" -i \"{1}\" -c:v dnxhd -vf \"scale=1920:1080,fps=24000/1001,format=yuv422p\" -b:v 90M -c:a pcm_s16le \"{2}\"";
+		//private readonly string cmdStrDNxHD2 ="\"{0}\" -i \"{1}\" -c:v dnxhd -vf \"scale=1920:1080,fps=24000/1001,format=yuv422p10le\" -b:v 175M -c:a pcm_s16le \"{2}\"";
 
 			string p = "";
 
@@ -414,7 +480,15 @@ namespace ToH264
 			}
 			if (m_IsDNxHD == true)
 			{
-				p = string.Format(cmdStrDNxHD, m_FFMPEG_Path, s, "90M", n);
+				switch(m_DNxHD_STYLE)
+				{
+					case DNxHD_STYLE.LB:
+						p = string.Format(cmdStrDNxHD, m_FFMPEG_Path, s, n);
+						break;
+					case DNxHD_STYLE.HQX:
+						p = string.Format(cmdStrDNxHD2, m_FFMPEG_Path, s, n);
+						break;
+				}
 			}
 			else
 			{
