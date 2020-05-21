@@ -26,8 +26,11 @@ namespace ToH264
 
 		private readonly string cmdStr = "\"{0}\" -i \"{1}\" -movflags faststart -y -vcodec libx264 -vf format=yuv420p -crf {2} -acodec libmp3lame \"{3}\"";
 
-		private readonly string cmdStrDNxHD ="\"{0}\" -i \"{1}\" -c:v dnxhd -vf \"scale=1920:1080,fps=24000/1001,format=yuv422p\" -b:v 90M -c:a pcm_s16le \"{2}\"";
-		private readonly string cmdStrDNxHD2 ="\"{0}\" -i \"{1}\" -c:v dnxhd -vf \"scale=1920:1080,fps=24000/1001,format=yuv422p10le\" -b:v 175M -c:a pcm_s16le \"{2}\"";
+		private readonly string cmdStrDNxHD ="\"{0}\" -i \"{1}\" -y -c:v dnxhd -vf \"scale=1920:1080,fps=24000/1001,format=yuv422p\" -b:v 90M -c:a pcm_s16le \"{2}\"";
+		private readonly string cmdStrDNxHD2 ="\"{0}\" -i \"{1}\" -y -c:v dnxhd -vf \"scale=1920:1080,fps=24000/1001,format=yuv422p10le\" -b:v 175M -c:a pcm_s16le \"{2}\"";
+
+		//		private readonly string cmdStrDNxHD ="\"{0}\" -i \"{1}\" -c:v dnxhd -vf \"scale=1920:1080,fps=24000/1001,format=yuv422p\" -b:v 90M -c:a pcm_s16le \"{2}\"";
+		//private readonly string cmdStrDNxHD2 ="\"{0}\" -i \"{1}\" -c:v dnxhd -vf \"scale=1920:1080,fps=24000/1001,format=yuv422p10le\" -b:v 175M -c:a pcm_s16le \"{2}\"";
 
 		private DNxHD_STYLE m_DNxHD_STYLE = DNxHD_STYLE.LB;
 		public DNxHD_STYLE DNxHD_STYLE
@@ -517,6 +520,14 @@ namespace ToH264
 		public bool Exec()
 		{
 			bool ret = false;
+
+			if(File.Exists(m_FFMPEG_Path)==false)
+			{
+				MessageBox.Show("ffmpeg.exeが見つかりません。");
+				return ret;
+			}
+
+
 			int cnt = m_TargetList.Count;
 			if (cnt <= 0) return ret;
 			int cntA = cnt / m_JobCount;
