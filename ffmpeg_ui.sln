@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToH264", "ToH264\ToH264.csproj", "{608EDCE9-6239-4AF3-9E99-7E6AE1560382}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquenceToMovie", "SquenceToMovie\SquenceToMovie.csproj", "{518CB639-0453-4E3D-804A-DC880B492352}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{608EDCE9-6239-4AF3-9E99-7E6AE1560382}.Release|x64.Build.0 = Release|x64
 		{608EDCE9-6239-4AF3-9E99-7E6AE1560382}.Release|x86.ActiveCfg = Release|x86
 		{608EDCE9-6239-4AF3-9E99-7E6AE1560382}.Release|x86.Build.0 = Release|x86
+		{518CB639-0453-4E3D-804A-DC880B492352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{518CB639-0453-4E3D-804A-DC880B492352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{518CB639-0453-4E3D-804A-DC880B492352}.Debug|x64.ActiveCfg = Debug|x64
+		{518CB639-0453-4E3D-804A-DC880B492352}.Debug|x64.Build.0 = Debug|x64
+		{518CB639-0453-4E3D-804A-DC880B492352}.Debug|x86.ActiveCfg = Debug|x86
+		{518CB639-0453-4E3D-804A-DC880B492352}.Debug|x86.Build.0 = Debug|x86
+		{518CB639-0453-4E3D-804A-DC880B492352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{518CB639-0453-4E3D-804A-DC880B492352}.Release|Any CPU.Build.0 = Release|Any CPU
+		{518CB639-0453-4E3D-804A-DC880B492352}.Release|x64.ActiveCfg = Release|x64
+		{518CB639-0453-4E3D-804A-DC880B492352}.Release|x64.Build.0 = Release|x64
+		{518CB639-0453-4E3D-804A-DC880B492352}.Release|x86.ActiveCfg = Release|x86
+		{518CB639-0453-4E3D-804A-DC880B492352}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

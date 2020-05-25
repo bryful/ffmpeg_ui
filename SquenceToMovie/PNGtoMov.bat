@@ -1,0 +1,1 @@
+C:\Bin\ffmpeg\ffmpeg -r 24 -i ".\IKO16_DCK2_v3_1\IKO16_DCK2_v3_%%04d.png" -i IKO16_DCK1.wav -c:v qtrle -pix_fmt rgb24 -r 24  -c:a aac -map 0:v:0 -map 1:a:0  Test2.mov
