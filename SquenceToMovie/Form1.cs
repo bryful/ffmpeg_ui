@@ -26,6 +26,9 @@ namespace SquenceToMovie
 		public Form1()
 		{
 			InitializeComponent();
+
+			
+
 		}
 		/// <summary>
 		/// コントロールの初期化はこっちでやる
@@ -51,8 +54,18 @@ namespace SquenceToMovie
 				if (ok) this.Size = sz;
 				Point p = pref.GetPoint("Point", out ok);
 				if (ok) this.Location = p;
+				string s = pref.GetString("ffmpeg", out ok);
+				if (ok) sequenceFileTo1.ffmpegPath = s;
+				s = pref.GetString("FrameRate", out ok);
+				if (ok) sequenceFileTo1.FRAME_RATE_STR = s;
+				s = pref.GetString("Codec", out ok);
+				if (ok) sequenceFileTo1.MOVIE_CODEC_STR = s;
 			}
 			this.Text = Path.GetFileNameWithoutExtension(Application.ExecutablePath);
+			if(sequenceFileTo1.ffmpegPath=="")
+			{
+				OpenFFmpeg();
+			}
 		}
 		//-------------------------------------------------------------
 		/// <summary>
@@ -66,8 +79,10 @@ namespace SquenceToMovie
 			JsonPref pref = new JsonPref();
 			pref.SetSize("Size", this.Size);
 			pref.SetPoint("Point", this.Location);
+			pref.SetString("ffmpeg", sequenceFileTo1.ffmpegPath);
+			pref.SetString("FrameRate", sequenceFileTo1.FRAME_RATE_STR);
+			pref.SetString("Codec", sequenceFileTo1.MOVIE_CODEC_STR);
 
-			pref.SetIntArray("IntArray", new int[] { 8, 9, 7 });
 			pref.Save();
 
 		}
@@ -95,39 +110,40 @@ namespace SquenceToMovie
 
 			foreach(string s in files)
 			{
-				squenceFileTo1.Src = s;
-				if (squenceFileTo1.Src != "")
+				sequenceFileTo1.SetSquenceFile(s);
+				if (sequenceFileTo1.Src != "")
 				{
-					tbInputFile.Text = squenceFileTo1.Src;
-
-					if ( squenceFileTo1.SrcCount != squenceFileTo1.SrcLast - squenceFileTo1.SrcStart+1)
+					if (sequenceFileTo1.IsError == true)
 					{
-						MessageBox.Show("ファイル数が足りません!");
+						MessageBox.Show("ファイル数が足りません!\r\n" + sequenceFileTo1.Errors);
+
+					}
+					else
+					{
+						tbInputFile.Text = sequenceFileTo1.Src;
 					}
 					break;
 				}
 
-
 			}
 
 
 		}
-		// *******************************************************************************
-		private void cbIsSound_DragDrop(object sender, DragEventArgs e)
+		private void btnSound_DragDrop(object sender, DragEventArgs e)
 		{
 			string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 			foreach (string s in files)
 			{
-				squenceFileTo1.SoundFile = s;
-				if(squenceFileTo1.SoundFile != "")
+				sequenceFileTo1.SoundFile = s;
+				if(sequenceFileTo1.SoundFile != "")
 				{
-					tbSoundFile.Text = squenceFileTo1.SoundFile;
+					tbSound.Text = sequenceFileTo1.SoundFile;
 					cbIsSound.Checked = true;
 					break;
 				}
 			}
-
 		}
+
 		// *******************************************************************************
 		/// <summary>
 		/// ドラッグ＆ドロップの本体
@@ -184,6 +200,31 @@ namespace SquenceToMovie
 
 			MessageBox.Show(j.ToJson());
 
+		}
+		public bool OpenFFmpeg()
+		{
+			bool ret = false;
+			OpenFileDialog dlg = new OpenFileDialog();
+			dlg.Filter = "ffmpeg.exe|ffmpeg.exe";
+			string fn = sequenceFileTo1.ffmpegPath;
+			if (fn=="")
+			{
+				dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+				dlg.FileName = "ffmpeg.exe";
+			}
+			else
+			{
+				dlg.InitialDirectory = Path.GetDirectoryName(fn);
+				dlg.FileName = Path.GetFileName(fn);
+
+			}
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				sequenceFileTo1.ffmpegPath = dlg.FileName;
+				ret = true;
+			}
+
+			return ret;
 		}
 
 

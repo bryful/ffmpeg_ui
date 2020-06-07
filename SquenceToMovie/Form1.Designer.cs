@@ -38,25 +38,27 @@
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-			this.btnInputFile = new System.Windows.Forms.Button();
+			this.btnInputfile = new System.Windows.Forms.Button();
 			this.tbInputFile = new System.Windows.Forms.TextBox();
+			this.gpInputfile = new System.Windows.Forms.GroupBox();
+			this.sequenceFileTo1 = new SquenceToMovie.SequenceFileTo();
+			this.combFrameRate1 = new SquenceToMovie.CombFrameRate();
+			this.combCodec1 = new SquenceToMovie.CombCodec();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.btnSound = new System.Windows.Forms.Button();
+			this.tbSound = new System.Windows.Forms.TextBox();
 			this.cbIsSound = new System.Windows.Forms.CheckBox();
-			this.tbSoundFile = new System.Windows.Forms.TextBox();
-			this.btnAudioFile = new System.Windows.Forms.Button();
-			this.cmbCordec = new System.Windows.Forms.ComboBox();
-			this.tbOutputDir = new System.Windows.Forms.TextBox();
-			this.btnOutputDir = new System.Windows.Forms.Button();
-			this.cmbFps = new System.Windows.Forms.ComboBox();
-			this.gbRenban = new System.Windows.Forms.GroupBox();
-			this.gbSound = new System.Windows.Forms.GroupBox();
-			this.gbOutput = new System.Windows.Forms.GroupBox();
-			this.tbOutputName = new System.Windows.Forms.TextBox();
-			this.btnExec = new System.Windows.Forms.Button();
-			this.squenceFileTo1 = new SquenceToMovie.SquenceFileTo();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.btnExportDir = new System.Windows.Forms.Button();
+			this.tbExportDir = new System.Windows.Forms.TextBox();
+			this.tbExportName = new System.Windows.Forms.TextBox();
+			this.btnExport = new System.Windows.Forms.Button();
+			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
 			this.menuStrip1.SuspendLayout();
-			this.gbRenban.SuspendLayout();
-			this.gbSound.SuspendLayout();
-			this.gbOutput.SuspendLayout();
+			this.gpInputfile.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// menuStrip1
@@ -130,204 +132,232 @@
 			// 
 			// statusStrip1
 			// 
-			this.statusStrip1.Location = new System.Drawing.Point(0, 319);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 329);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(604, 22);
 			this.statusStrip1.TabIndex = 1;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
-			// btnInputFile
+			// btnInputfile
 			// 
-			this.btnInputFile.AllowDrop = true;
-			this.btnInputFile.Location = new System.Drawing.Point(10, 30);
-			this.btnInputFile.Name = "btnInputFile";
-			this.btnInputFile.Size = new System.Drawing.Size(75, 23);
-			this.btnInputFile.TabIndex = 2;
-			this.btnInputFile.Text = "選択";
-			this.btnInputFile.UseVisualStyleBackColor = true;
-			this.btnInputFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.tbInputFile_DragDrop);
-			this.btnInputFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+			this.btnInputfile.AllowDrop = true;
+			this.btnInputfile.Location = new System.Drawing.Point(16, 18);
+			this.btnInputfile.Name = "btnInputfile";
+			this.btnInputfile.Size = new System.Drawing.Size(75, 23);
+			this.btnInputfile.TabIndex = 2;
+			this.btnInputfile.Text = "Select";
+			this.btnInputfile.UseVisualStyleBackColor = true;
+			this.btnInputfile.DragDrop += new System.Windows.Forms.DragEventHandler(this.tbInputFile_DragDrop);
+			this.btnInputfile.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
 			// 
 			// tbInputFile
 			// 
 			this.tbInputFile.AllowDrop = true;
 			this.tbInputFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbInputFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.tbInputFile.Location = new System.Drawing.Point(110, 30);
+			this.tbInputFile.Location = new System.Drawing.Point(97, 20);
 			this.tbInputFile.Name = "tbInputFile";
-			this.tbInputFile.Size = new System.Drawing.Size(457, 23);
+			this.tbInputFile.ReadOnly = true;
+			this.tbInputFile.Size = new System.Drawing.Size(477, 19);
 			this.tbInputFile.TabIndex = 3;
 			this.tbInputFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.tbInputFile_DragDrop);
 			this.tbInputFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
 			// 
-			// cbIsSound
+			// gpInputfile
 			// 
-			this.cbIsSound.AllowDrop = true;
-			this.cbIsSound.AutoSize = true;
-			this.cbIsSound.Location = new System.Drawing.Point(10, 18);
-			this.cbIsSound.Name = "cbIsSound";
-			this.cbIsSound.Size = new System.Drawing.Size(128, 16);
-			this.cbIsSound.TabIndex = 4;
-			this.cbIsSound.Text = "音声ファイルをアペンド";
-			this.cbIsSound.UseVisualStyleBackColor = true;
-			this.cbIsSound.DragDrop += new System.Windows.Forms.DragEventHandler(this.cbIsSound_DragDrop);
-			this.cbIsSound.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
-			// 
-			// tbSoundFile
-			// 
-			this.tbSoundFile.AllowDrop = true;
-			this.tbSoundFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.gpInputfile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbSoundFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.tbSoundFile.Location = new System.Drawing.Point(110, 43);
-			this.tbSoundFile.Name = "tbSoundFile";
-			this.tbSoundFile.Size = new System.Drawing.Size(457, 23);
-			this.tbSoundFile.TabIndex = 6;
-			this.tbSoundFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.cbIsSound_DragDrop);
-			this.tbSoundFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+			this.gpInputfile.Controls.Add(this.btnInputfile);
+			this.gpInputfile.Controls.Add(this.tbInputFile);
+			this.gpInputfile.Location = new System.Drawing.Point(12, 27);
+			this.gpInputfile.Name = "gpInputfile";
+			this.gpInputfile.Size = new System.Drawing.Size(580, 51);
+			this.gpInputfile.TabIndex = 4;
+			this.gpInputfile.TabStop = false;
+			this.gpInputfile.Text = "連番ファイル";
 			// 
-			// btnAudioFile
+			// sequenceFileTo1
 			// 
-			this.btnAudioFile.AllowDrop = true;
-			this.btnAudioFile.Location = new System.Drawing.Point(10, 43);
-			this.btnAudioFile.Name = "btnAudioFile";
-			this.btnAudioFile.Size = new System.Drawing.Size(75, 23);
-			this.btnAudioFile.TabIndex = 5;
-			this.btnAudioFile.Text = "Audio";
-			this.btnAudioFile.UseVisualStyleBackColor = true;
-			this.btnAudioFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.cbIsSound_DragDrop);
-			this.btnAudioFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+			this.sequenceFileTo1.CmbFrameRate = this.combFrameRate1;
+			this.sequenceFileTo1.CombCodec = this.combCodec1;
+			this.sequenceFileTo1.ffmpegPath = "";
+			this.sequenceFileTo1.FRAME_RATE = SquenceToMovie.FRAME_RATE.Fps24;
+			this.sequenceFileTo1.MOVIE_CODEC = SquenceToMovie.MOVIE_CODEC.QTRLE;
+			this.sequenceFileTo1.SequenceFile = "";
+			this.sequenceFileTo1.SoundFile = "";
 			// 
-			// cmbCordec
+			// combFrameRate1
 			// 
-			this.cmbCordec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbCordec.FormattingEnabled = true;
-			this.cmbCordec.Items.AddRange(new object[] {
-            "Quicktime アニメーション圧縮(*.mov)",
-            "Quicktime prores LB(*.mov)",
-            "Quicktime prores proxy(*.mov)",
-            "H.246(*.mp4)"});
-			this.cmbCordec.Location = new System.Drawing.Point(204, 98);
-			this.cmbCordec.Name = "cmbCordec";
-			this.cmbCordec.Size = new System.Drawing.Size(201, 20);
-			this.cmbCordec.TabIndex = 7;
-			// 
-			// tbOutputDir
-			// 
-			this.tbOutputDir.AllowDrop = true;
-			this.tbOutputDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbOutputDir.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.tbOutputDir.Location = new System.Drawing.Point(110, 29);
-			this.tbOutputDir.Name = "tbOutputDir";
-			this.tbOutputDir.Size = new System.Drawing.Size(457, 23);
-			this.tbOutputDir.TabIndex = 9;
-			this.tbOutputDir.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
-			// 
-			// btnOutputDir
-			// 
-			this.btnOutputDir.AllowDrop = true;
-			this.btnOutputDir.Location = new System.Drawing.Point(9, 31);
-			this.btnOutputDir.Name = "btnOutputDir";
-			this.btnOutputDir.Size = new System.Drawing.Size(75, 23);
-			this.btnOutputDir.TabIndex = 8;
-			this.btnOutputDir.Text = "OutputDir";
-			this.btnOutputDir.UseVisualStyleBackColor = true;
-			this.btnOutputDir.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
-			// 
-			// cmbFps
-			// 
-			this.cmbFps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbFps.FormattingEnabled = true;
-			this.cmbFps.Items.AddRange(new object[] {
+			this.combFrameRate1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.combFrameRate1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.combFrameRate1.FormattingEnabled = true;
+			this.combFrameRate1.FRAME_RATE = SquenceToMovie.FRAME_RATE.Fps24;
+			this.combFrameRate1.Items.AddRange(new object[] {
             "24fps",
             "23.976fps",
             "30fps",
             "29.97fps"});
-			this.cmbFps.Location = new System.Drawing.Point(110, 98);
-			this.cmbFps.Name = "cmbFps";
-			this.cmbFps.Size = new System.Drawing.Size(88, 20);
-			this.cmbFps.TabIndex = 10;
+			this.combFrameRate1.Location = new System.Drawing.Point(127, 18);
+			this.combFrameRate1.Name = "combFrameRate1";
+			this.combFrameRate1.Size = new System.Drawing.Size(121, 24);
+			this.combFrameRate1.TabIndex = 5;
 			// 
-			// gbRenban
+			// combCodec1
 			// 
-			this.gbRenban.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.combCodec1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.combCodec1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.combCodec1.FormattingEnabled = true;
+			this.combCodec1.Items.AddRange(new object[] {
+            "Quicktime Animation",
+            "H.264",
+            "Quicktime Prores Proxy",
+            "Quicktime Prores LT"});
+			this.combCodec1.Location = new System.Drawing.Point(316, 18);
+			this.combCodec1.MOVI_CODEC = SquenceToMovie.MOVIE_CODEC.QTRLE;
+			this.combCodec1.Name = "combCodec1";
+			this.combCodec1.Size = new System.Drawing.Size(182, 24);
+			this.combCodec1.TabIndex = 6;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.gbRenban.Controls.Add(this.btnInputFile);
-			this.gbRenban.Controls.Add(this.tbInputFile);
-			this.gbRenban.Location = new System.Drawing.Point(12, 27);
-			this.gbRenban.Name = "gbRenban";
-			this.gbRenban.Size = new System.Drawing.Size(579, 72);
-			this.gbRenban.TabIndex = 11;
-			this.gbRenban.TabStop = false;
-			this.gbRenban.Text = "元連番ファイル";
+			this.groupBox1.Controls.Add(this.cbIsSound);
+			this.groupBox1.Controls.Add(this.btnSound);
+			this.groupBox1.Controls.Add(this.tbSound);
+			this.groupBox1.Location = new System.Drawing.Point(12, 84);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(580, 79);
+			this.groupBox1.TabIndex = 5;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "音声ファイル";
 			// 
-			// gbSound
+			// btnSound
 			// 
-			this.gbSound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.btnSound.AllowDrop = true;
+			this.btnSound.Location = new System.Drawing.Point(16, 40);
+			this.btnSound.Name = "btnSound";
+			this.btnSound.Size = new System.Drawing.Size(75, 23);
+			this.btnSound.TabIndex = 2;
+			this.btnSound.Text = "Select";
+			this.btnSound.UseVisualStyleBackColor = true;
+			this.btnSound.DragDrop += new System.Windows.Forms.DragEventHandler(this.btnSound_DragDrop);
+			this.btnSound.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+			// 
+			// tbSound
+			// 
+			this.tbSound.AllowDrop = true;
+			this.tbSound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.gbSound.Controls.Add(this.cbIsSound);
-			this.gbSound.Controls.Add(this.btnAudioFile);
-			this.gbSound.Controls.Add(this.tbSoundFile);
-			this.gbSound.Location = new System.Drawing.Point(12, 105);
-			this.gbSound.Name = "gbSound";
-			this.gbSound.Size = new System.Drawing.Size(579, 72);
-			this.gbSound.TabIndex = 12;
-			this.gbSound.TabStop = false;
-			this.gbSound.Text = "音声ファイル";
+			this.tbSound.Location = new System.Drawing.Point(97, 40);
+			this.tbSound.Name = "tbSound";
+			this.tbSound.ReadOnly = true;
+			this.tbSound.Size = new System.Drawing.Size(477, 19);
+			this.tbSound.TabIndex = 3;
+			this.tbSound.DragDrop += new System.Windows.Forms.DragEventHandler(this.btnSound_DragDrop);
+			this.tbSound.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
 			// 
-			// gbOutput
+			// cbIsSound
 			// 
-			this.gbOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cbIsSound.AutoSize = true;
+			this.cbIsSound.Location = new System.Drawing.Point(26, 18);
+			this.cbIsSound.Name = "cbIsSound";
+			this.cbIsSound.Size = new System.Drawing.Size(76, 16);
+			this.cbIsSound.TabIndex = 4;
+			this.cbIsSound.Text = "音を付ける";
+			this.cbIsSound.UseVisualStyleBackColor = true;
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.gbOutput.Controls.Add(this.tbOutputName);
-			this.gbOutput.Controls.Add(this.btnExec);
-			this.gbOutput.Controls.Add(this.cmbCordec);
-			this.gbOutput.Controls.Add(this.btnOutputDir);
-			this.gbOutput.Controls.Add(this.cmbFps);
-			this.gbOutput.Controls.Add(this.tbOutputDir);
-			this.gbOutput.Location = new System.Drawing.Point(13, 183);
-			this.gbOutput.Name = "gbOutput";
-			this.gbOutput.Size = new System.Drawing.Size(579, 133);
-			this.gbOutput.TabIndex = 13;
-			this.gbOutput.TabStop = false;
-			this.gbOutput.Text = "出力";
+			this.groupBox2.Controls.Add(this.label2);
+			this.groupBox2.Controls.Add(this.label1);
+			this.groupBox2.Controls.Add(this.btnExport);
+			this.groupBox2.Controls.Add(this.tbExportName);
+			this.groupBox2.Controls.Add(this.btnExportDir);
+			this.groupBox2.Controls.Add(this.combCodec1);
+			this.groupBox2.Controls.Add(this.tbExportDir);
+			this.groupBox2.Controls.Add(this.combFrameRate1);
+			this.groupBox2.Location = new System.Drawing.Point(12, 169);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(580, 152);
+			this.groupBox2.TabIndex = 5;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "出力ムービー";
 			// 
-			// tbOutputName
+			// btnExportDir
 			// 
-			this.tbOutputName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.btnExportDir.AllowDrop = true;
+			this.btnExportDir.Location = new System.Drawing.Point(16, 60);
+			this.btnExportDir.Name = "btnExportDir";
+			this.btnExportDir.Size = new System.Drawing.Size(75, 23);
+			this.btnExportDir.TabIndex = 2;
+			this.btnExportDir.Text = "Select";
+			this.btnExportDir.UseVisualStyleBackColor = true;
+			// 
+			// tbExportDir
+			// 
+			this.tbExportDir.AllowDrop = true;
+			this.tbExportDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbOutputName.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.tbOutputName.Location = new System.Drawing.Point(109, 58);
-			this.tbOutputName.Name = "tbOutputName";
-			this.tbOutputName.Size = new System.Drawing.Size(284, 23);
-			this.tbOutputName.TabIndex = 12;
+			this.tbExportDir.Location = new System.Drawing.Point(97, 62);
+			this.tbExportDir.Name = "tbExportDir";
+			this.tbExportDir.ReadOnly = true;
+			this.tbExportDir.Size = new System.Drawing.Size(477, 19);
+			this.tbExportDir.TabIndex = 3;
 			// 
-			// btnExec
+			// tbExportName
 			// 
-			this.btnExec.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnExec.Location = new System.Drawing.Point(406, 58);
-			this.btnExec.Name = "btnExec";
-			this.btnExec.Size = new System.Drawing.Size(160, 60);
-			this.btnExec.TabIndex = 11;
-			this.btnExec.Text = "実行";
-			this.btnExec.UseVisualStyleBackColor = true;
+			this.tbExportName.AllowDrop = true;
+			this.tbExportName.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.tbExportName.Location = new System.Drawing.Point(97, 87);
+			this.tbExportName.Name = "tbExportName";
+			this.tbExportName.Size = new System.Drawing.Size(241, 23);
+			this.tbExportName.TabIndex = 4;
+			// 
+			// btnExport
+			// 
+			this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnExport.Location = new System.Drawing.Point(384, 89);
+			this.btnExport.Name = "btnExport";
+			this.btnExport.Size = new System.Drawing.Size(155, 40);
+			this.btnExport.TabIndex = 7;
+			this.btnExport.Text = "Export";
+			this.btnExport.UseVisualStyleBackColor = true;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(60, 25);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(61, 12);
+			this.label1.TabIndex = 8;
+			this.label1.Text = "FrameRate";
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(273, 25);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(37, 12);
+			this.label2.TabIndex = 9;
+			this.label2.Text = "Codec";
 			// 
 			// Form1
 			// 
 			this.AllowDrop = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(604, 341);
-			this.Controls.Add(this.gbOutput);
-			this.Controls.Add(this.gbSound);
-			this.Controls.Add(this.gbRenban);
+			this.ClientSize = new System.Drawing.Size(604, 351);
+			this.Controls.Add(this.groupBox2);
+			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.gpInputfile);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.menuStrip1);
 			this.MainMenuStrip = this.menuStrip1;
-			this.MaximumSize = new System.Drawing.Size(40000, 380);
-			this.MinimumSize = new System.Drawing.Size(620, 380);
+			this.MaximumSize = new System.Drawing.Size(40000, 390);
+			this.MinimumSize = new System.Drawing.Size(620, 390);
 			this.Name = "Form1";
 			this.Text = "連番ファイルをムービーへ";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -336,12 +366,12 @@
 			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
-			this.gbRenban.ResumeLayout(false);
-			this.gbRenban.PerformLayout();
-			this.gbSound.ResumeLayout(false);
-			this.gbSound.PerformLayout();
-			this.gbOutput.ResumeLayout(false);
-			this.gbOutput.PerformLayout();
+			this.gpInputfile.ResumeLayout(false);
+			this.gpInputfile.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -359,21 +389,23 @@
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.StatusStrip statusStrip1;
-		private System.Windows.Forms.Button btnInputFile;
+		private SequenceFileTo sequenceFileTo1;
+		private System.Windows.Forms.Button btnInputfile;
 		private System.Windows.Forms.TextBox tbInputFile;
+		private System.Windows.Forms.GroupBox gpInputfile;
+		private CombFrameRate combFrameRate1;
+		private CombCodec combCodec1;
+		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.CheckBox cbIsSound;
-		private System.Windows.Forms.TextBox tbSoundFile;
-		private System.Windows.Forms.Button btnAudioFile;
-		private System.Windows.Forms.ComboBox cmbCordec;
-		private System.Windows.Forms.TextBox tbOutputDir;
-		private System.Windows.Forms.Button btnOutputDir;
-		private System.Windows.Forms.ComboBox cmbFps;
-		private System.Windows.Forms.GroupBox gbRenban;
-		private System.Windows.Forms.GroupBox gbSound;
-		private System.Windows.Forms.GroupBox gbOutput;
-		private System.Windows.Forms.TextBox tbOutputName;
-		private System.Windows.Forms.Button btnExec;
-		private SquenceFileTo squenceFileTo1;
+		private System.Windows.Forms.Button btnSound;
+		private System.Windows.Forms.TextBox tbSound;
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Button btnExport;
+		private System.Windows.Forms.TextBox tbExportName;
+		private System.Windows.Forms.Button btnExportDir;
+		private System.Windows.Forms.TextBox tbExportDir;
 	}
 }
 

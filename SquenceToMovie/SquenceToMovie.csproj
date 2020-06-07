@@ -78,6 +78,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -97,6 +98,13 @@
     <Compile Include="AppInfoDialog.Designer.cs">
       <DependentUpon>AppInfoDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="CombCodec.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CombFrameRate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="converter.cs" />
     <Compile Include="DynamicJson.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -107,7 +115,8 @@
     <Compile Include="JsonPref.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SquenceFileTo.cs">
+    <Compile Include="SequenceFiles.cs" />
+    <Compile Include="SequenceFileTo.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WindowsShellAPI.cs" />
