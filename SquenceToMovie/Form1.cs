@@ -104,24 +104,35 @@ namespace SquenceToMovie
 			}
 		}
 		// *******************************************************************************
+		public bool AddInputFile(string s)
+		{
+			bool ret = false;
+			sequenceFileTo1.SetSquenceFile(s);
+			if (sequenceFileTo1.Src != "")
+			{
+				if (sequenceFileTo1.IsError == true)
+				{
+					MessageBox.Show("ファイル数が足りません!\r\n" + sequenceFileTo1.Errors);
+				}
+				else
+				{
+					tbInputFile.Text = sequenceFileTo1.Src;
+					tbExportDir.Text = sequenceFileTo1.ExportDir;
+					ret = true;
+				}
+			}
+			return ret;
+
+		}
+		// *******************************************************************************
 		private void tbInputFile_DragDrop(object sender, DragEventArgs e)
 		{
 			string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 
 			foreach(string s in files)
 			{
-				sequenceFileTo1.SetSquenceFile(s);
-				if (sequenceFileTo1.Src != "")
+				if (AddInputFile(s) == true)
 				{
-					if (sequenceFileTo1.IsError == true)
-					{
-						MessageBox.Show("ファイル数が足りません!\r\n" + sequenceFileTo1.Errors);
-
-					}
-					else
-					{
-						tbInputFile.Text = sequenceFileTo1.Src;
-					}
 					break;
 				}
 
@@ -132,30 +143,42 @@ namespace SquenceToMovie
 		private void btnSound_DragDrop(object sender, DragEventArgs e)
 		{
 			string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+			cbIsSound.Checked = false;
 			foreach (string s in files)
 			{
 				sequenceFileTo1.SoundFile = s;
 				if(sequenceFileTo1.SoundFile != "")
 				{
 					tbSound.Text = sequenceFileTo1.SoundFile;
-					cbIsSound.Checked = true;
+					cbIsSound.Checked = sequenceFileTo1.IsSound;
 					break;
 				}
 			}
 		}
-
-		// *******************************************************************************
-		/// <summary>
-		/// ドラッグ＆ドロップの本体
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void Form1_DragDrop(object sender, DragEventArgs e)
+		private void tbExportDir_DragDrop(object sender, DragEventArgs e)
 		{
 			string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-			//ここでは単純にファイルをリストアップするだけ
-			//GetCommand(files);
+			string pp = "";
+			foreach (string s in files)
+			{
+				if (File.Exists(s) == true)
+				{
+					pp = Path.GetDirectoryName(s);
+					break;
+				}else if (Directory.Exists(s) == true)
+				{
+					pp = s;
+					break;
+				}
+			}
+			if(pp!="")
+			{
+				sequenceFileTo1.ExportDir = pp;
+				tbExportDir.Text = sequenceFileTo1.ExportDir;
+			}
+
 		}
+
 		//-------------------------------------------------------------
 		/// <summary>
 		/// ダミー関数
@@ -226,6 +249,7 @@ namespace SquenceToMovie
 
 			return ret;
 		}
+
 
 
 
