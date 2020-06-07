@@ -70,6 +70,14 @@ namespace SquenceToMovie
 		public bool IsError { get { return m_SequenceFile.IsError; } }
 		public string Src { get { return m_SequenceFile.ffmpegFileName; } }
 		public string Errors {  get { return m_SequenceFile.Errers; } }
+		public string SrcFile
+		{
+			get { return m_SequenceFile.SrcFile; }
+			set
+			{
+				SetSquenceFile(value);
+			}
+		}
 		private FRAME_RATE m_FRAME_RATE = FRAME_RATE.Fps24;
 		public FRAME_RATE FRAME_RATE
 		{
@@ -420,10 +428,10 @@ ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\wo
 
 			string args = "";
 			args += String.Format("-r {0}",FpsOption[(int)m_FRAME_RATE]);
-			args += String.Format(" -i {0}",Src);
-			if(m_IsSound)
+			args += String.Format(" -i {0}","\"" + Src + "\"");
+			if((m_IsSound==true)&&(m_SoundFile!=""))
 			{
-				args += String.Format(" -i {0}", m_SoundFile);
+				args += String.Format(" -i {0}", "\""+m_SoundFile+"\"");
 			}
 			switch (m_MOVIE_CODEC)
 			{
@@ -441,7 +449,7 @@ ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\wo
 					break;
 			}
 			args += String.Format(" -r {0}",FpsOption[(int)m_FRAME_RATE]);
-			if(m_IsSound)
+			if((m_IsSound==true)&&(m_SoundFile!=""))
 			{
 				if (m_MOVIE_CODEC == MOVIE_CODEC.H264)
 				{
@@ -452,12 +460,12 @@ ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\wo
 					args += " -c:a pcm_s16le -map 0:v:0 -map 1:a:0";
 				}
 			}
-			args += " " + Path.Combine(ExportFullName)
+			args += " \"" + ExportFullName + "\"";
 			//p.StartInfo.Arguments = "/c \"" + ex + "\"";
 
 			//起動
-			p.Start();
-
+			//p.Start();
+			MessageBox.Show(args);
 			return ret;
 		}
 	}

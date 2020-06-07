@@ -60,6 +60,7 @@ namespace SquenceToMovie
 				if (ok) sequenceFileTo1.FRAME_RATE_STR = s;
 				s = pref.GetString("Codec", out ok);
 				if (ok) sequenceFileTo1.MOVIE_CODEC_STR = s;
+				s = 
 			}
 			this.Text = Path.GetFileNameWithoutExtension(Application.ExecutablePath);
 			if(sequenceFileTo1.ffmpegPath=="")
@@ -82,6 +83,8 @@ namespace SquenceToMovie
 			pref.SetString("ffmpeg", sequenceFileTo1.ffmpegPath);
 			pref.SetString("FrameRate", sequenceFileTo1.FRAME_RATE_STR);
 			pref.SetString("Codec", sequenceFileTo1.MOVIE_CODEC_STR);
+			pref.SetString("SequenceFile", sequenceFileTo1.SequenceFile);
+			pref.SetString("ExportDir", sequenceFileTo1.ExportDir);
 
 			pref.Save();
 
@@ -248,6 +251,12 @@ namespace SquenceToMovie
 			}
 
 			return ret;
+		}
+
+		private void btnExport_Click(object sender, EventArgs e)
+		{
+			sequenceFileTo1.IsSound = cbIsSound.Checked;
+			sequenceFileTo1.Exec();
 		}
 
 
