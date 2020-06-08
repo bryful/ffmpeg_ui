@@ -211,7 +211,7 @@ namespace SquenceToMovie
 				}
 				else
 				{
-				return m_ParentDir + "\\" + m_Node + m_Frames[0] + m_Ext;
+					return Path.Combine(m_ParentDir , m_Node + m_Frames[0] + m_Ext);
 				}
 			}
 		}

@@ -30,11 +30,18 @@ namespace SquenceToMovie
 
 	public class SequenceFileTo : Component
 	{
+		#region String定数
 		static public readonly string[] CodecStr = new string[] { "Quicktime Animation", "H.264",  "Quicktime Prores Proxy", "Quicktime Prores LT" }; 
 		static public readonly string[] CodecExt = new string[] { ".mov", ".mp4",  ".mov", ".mov" }; 
 		static public readonly string[] FpsStr = new string[] { "24fps", "23.976fps", "30fps", "29.97fps" }; 
-		static public readonly string[] FpsOption = new string[] { "24", "23.976", "30", "29.97" }; 
+		static public readonly string[] FpsOption = new string[] { "24", "23.976", "30", "29.97" };
+		#endregion
+
+		// *******************
 		private string m_ffmpegPath = "";
+		/// <summary>
+		/// ffmpeg.exeのフルパス
+		/// </summary>
 		public string ffmpegPath
 		{
 			get { return m_ffmpegPath; }
@@ -54,7 +61,9 @@ namespace SquenceToMovie
 		/// <summary>
 		/// 読み込み対象のファイル
 		/// </summary>
+		// *******************
 		private SequenceFiles m_SequenceFile = new SequenceFiles("");
+
 		public string SequenceFile
 		{
 			get { return m_SequenceFile.SrcFile; }
@@ -78,6 +87,8 @@ namespace SquenceToMovie
 				SetSquenceFile(value);
 			}
 		}
+
+
 		private FRAME_RATE m_FRAME_RATE = FRAME_RATE.Fps24;
 		public FRAME_RATE FRAME_RATE
 		{
@@ -279,13 +290,19 @@ namespace SquenceToMovie
 		{
 			get
 			{
-				
-				switch(m_MOVIE_CODEC)
+				if (m_ExportName != "")
 				{
-					case MOVIE_CODEC.H264:
-						return m_ExportName + ".mp4";
-					default:
-						return m_ExportName + ".mov";
+					switch (m_MOVIE_CODEC)
+					{
+						case MOVIE_CODEC.H264:
+							return m_ExportName + ".mp4";
+						default:
+							return m_ExportName + ".mov";
+					}
+				}
+				else
+				{
+					return "";
 				}
 
 			}
@@ -298,6 +315,9 @@ namespace SquenceToMovie
 		{
 			get { return Path.Combine(ExportDir, ExportName); }
 		}
+		#region ctrl
+
+		#region TextBox_ExportName
 		private TextBox m_TextBox_ExportName = null;
 		public TextBox TextBox_ExportName
 		{
@@ -320,6 +340,51 @@ namespace SquenceToMovie
 			}
 
 		}
+		#endregion
+
+		#region BtnOpenSeq
+		private Button m_BtnOpenSeq = null;
+		public Button BtnOpenSeq
+		{
+			get { return m_BtnOpenSeq; }
+			set
+			{
+				m_BtnOpenSeq = value;
+				if (m_BtnOpenSeq != null)
+				{
+					m_BtnOpenSeq.Click += M_BtnOpenSeq_Click;
+				}
+			}
+		}
+
+		private void M_BtnOpenSeq_Click(object sender, EventArgs e)
+		{
+			OpenSequenceFile();
+		}
+		#endregion
+
+		#region TextBox_Seq
+		private TextBox m_TextBox_Seq = null;
+		public TextBox TextBox_Seq
+		{
+			get { return m_TextBox_Seq; }
+			set
+			{
+				m_TextBox_Seq = value;
+				if(m_TextBox_Seq!=null)
+				{
+					string s = Src;
+					if(m_TextBox_Seq.Text != Src)
+					{
+						m_TextBox_Seq.ReadOnly = true;
+						m_TextBox_Seq.Text = Src;
+					}
+				}
+			}
+		}
+		#endregion
+
+		#endregion
 
 		/// <summary>
 		/// フォルダ内にある画像ファイルを返す。
@@ -365,6 +430,12 @@ namespace SquenceToMovie
 			{
 
 			}
+			if(m_TextBox_Seq!=null)
+			{
+				string sq = Src;
+				if (m_TextBox_Seq.Text != sq) m_TextBox_Seq.Text = sq;
+			}
+
 			if (m_ExportDir == "")
 			{
 				m_ExportDir = Path.GetDirectoryName(fn.ParentDir);
@@ -401,21 +472,52 @@ namespace SquenceToMovie
 		{
 		}
 		// ******************************************************************************
+		public bool OpenSequenceFile()
+		{
+			bool ret = false;
+			OpenFileDialog dlg = new OpenFileDialog();
+			dlg.Filter = "*.png|*.png|*.tga|*.tga|*.jpg|*.jpg|*.tif|*.tif|*.*|*.*";
+
+			dlg.InitialDirectory = m_SequenceFile.ParentDir;
+			dlg.FileName = m_SequenceFile.SrcFile;
+			if(dlg.ShowDialog()==DialogResult.OK)
+			{
+				ret = SetSquenceFile(dlg.FileName);
+			}
+			return ret;
+
+		}
+		// ******************************************************************************
+		public bool OpenSoundFile()
+		{
+			bool ret = false;
+			OpenFileDialog dlg = new OpenFileDialog();
+			dlg.Filter = "*.wav|*.wav|*.aif|*.aif|*.aiff|*.aiff|*.mp4|*.mp4|*.mov|*.mov|*.*|*.*";
+
+			dlg.InitialDirectory = Path.GetDirectoryName(m_SoundFile);
+			dlg.FileName = Path.GetFileName(m_SoundFile);
+			if(dlg.ShowDialog()==DialogResult.OK)
+			{
+				SoundFile = dlg.FileName;
+				ret = (SoundFile != "");
+			}
+			return ret;
+
+		}
+		// ******************************************************************************
 		public bool Exec()
 		{
 			bool ret = false;
 	/*
 	 *
-ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\work\movie\IKF61_FCA1_v8.mp4 -vcodec libx264   -pix_fmt yuv420p -crf 10 -r 24 -c:a aac -map 0:v:0 -map 1:a:0 out1.mp4
-ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\work\movie\IKF61_FCA1_v8.mp4 -codec:v prores_ks -profile:v 1 -r 24 -c:a aac -map 0:v:0 -map 1:a:0 out3_prores.mov
-ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\work\movie\IKF61_FCA1_v8.mp4 -codec:v prores_ks -profile:v 0 -r 24 -c:a aac -map 0:v:0 -map 1:a:0 out3_prores0.mov
-ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\work\movie\IKF61_FCA1_v8.mp4 -codec:v prores_ks -profile:v 3 -r 24 -c:a aac -map 0:v:0 -map 1:a:0 out3_prores3.mov
-ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\work\movie\IKF61_FCA1_v8.mp4 -codec:v prores_ks -profile:v 2 -r 24 -c:a aac -map 0:v:0 -map 1:a:0 out3_prores2.mov
-
-
-ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\work\movie\IKF61_FCA1_v8.mp4 -thread_queue_size 16 -vcodec qtrle  -r 24 -c:a pcm_s16le -map 0:v:0 -map 1:a:0 out1.mov
-
-
+	 *	ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\work\movie\IKF61_FCA1_v8.mp4 -vcodec libx264   -pix_fmt yuv420p -crf 10 -r 24 -c:a aac -map 0:v:0 -map 1:a:0 out1.mp4
+	 *	ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\work\movie\IKF61_FCA1_v8.mp4 -codec:v prores_ks -profile:v 1 -r 24 -c:a aac -map 0:v:0 -map 1:a:0 out3_prores.mov
+	 *	ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\work\movie\IKF61_FCA1_v8.mp4 -codec:v prores_ks -profile:v 0 -r 24 -c:a aac -map 0:v:0 -map 1:a:0 out3_prores0.mov
+	 *	ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\work\movie\IKF61_FCA1_v8.mp4 -codec:v prores_ks -profile:v 3 -r 24 -c:a aac -map 0:v:0 -map 1:a:0 out3_prores3.mov
+	 *	ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\work\movie\IKF61_FCA1_v8.mp4 -codec:v prores_ks -profile:v 2 -r 24 -c:a aac -map 0:v:0 -map 1:a:0 out3_prores2.mov
+	 *
+	 *
+ 	 *	ffmpeg.exe -r 24 -i D:\work\movie\IKF61_FCA1_v8\IKF61_FCA1_v8_%%05d.png -i D:\work\movie\IKF61_FCA1_v8.mp4 -thread_queue_size 16 -vcodec qtrle  -r 24 -c:a pcm_s16le -map 0:v:0 -map 1:a:0 out1.mov
 	 */ 
 
 			if (m_ffmpegPath == "")

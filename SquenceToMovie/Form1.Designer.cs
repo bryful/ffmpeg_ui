@@ -41,9 +41,7 @@
 			this.btnInputfile = new System.Windows.Forms.Button();
 			this.tbInputFile = new System.Windows.Forms.TextBox();
 			this.gpInputfile = new System.Windows.Forms.GroupBox();
-			this.sequenceFileTo1 = new SquenceToMovie.SequenceFileTo();
-			this.combFrameRate1 = new SquenceToMovie.CombFrameRate();
-			this.combCodec1 = new SquenceToMovie.CombCodec();
+			this.tbExportName = new System.Windows.Forms.TextBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.cbIsSound = new System.Windows.Forms.CheckBox();
 			this.btnSound = new System.Windows.Forms.Button();
@@ -52,9 +50,11 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.btnExport = new System.Windows.Forms.Button();
-			this.tbExportName = new System.Windows.Forms.TextBox();
 			this.btnExportDir = new System.Windows.Forms.Button();
 			this.tbExportDir = new System.Windows.Forms.TextBox();
+			this.combCodec1 = new SquenceToMovie.CombCodec();
+			this.combFrameRate1 = new SquenceToMovie.CombFrameRate();
+			this.sequenceFileTo1 = new SquenceToMovie.SequenceFileTo();
 			this.menuStrip1.SuspendLayout();
 			this.gpInputfile.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -176,52 +176,14 @@
 			this.gpInputfile.TabStop = false;
 			this.gpInputfile.Text = "連番ファイル";
 			// 
-			// sequenceFileTo1
+			// tbExportName
 			// 
-			this.sequenceFileTo1.CmbFrameRate = this.combFrameRate1;
-			this.sequenceFileTo1.CombCodec = this.combCodec1;
-			this.sequenceFileTo1.ExportDir = "";
-			this.sequenceFileTo1.ExportName = ".mov";
-			this.sequenceFileTo1.ffmpegPath = "";
-			this.sequenceFileTo1.FRAME_RATE = SquenceToMovie.FRAME_RATE.Fps24;
-			this.sequenceFileTo1.FRAME_RATE_STR = "24fps";
-			this.sequenceFileTo1.MOVIE_CODEC = SquenceToMovie.MOVIE_CODEC.QTRLE;
-			this.sequenceFileTo1.MOVIE_CODEC_STR = "Quicktime Animation";
-			this.sequenceFileTo1.SequenceFile = "";
-			this.sequenceFileTo1.SoundFile = "";
-			this.sequenceFileTo1.TextBox_ExportName = this.tbExportName;
-			// 
-			// combFrameRate1
-			// 
-			this.combFrameRate1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.combFrameRate1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.combFrameRate1.FormattingEnabled = true;
-			this.combFrameRate1.FRAME_RATE = SquenceToMovie.FRAME_RATE.Fps24;
-			this.combFrameRate1.Items.AddRange(new object[] {
-            "24fps",
-            "23.976fps",
-            "30fps",
-            "29.97fps"});
-			this.combFrameRate1.Location = new System.Drawing.Point(127, 18);
-			this.combFrameRate1.Name = "combFrameRate1";
-			this.combFrameRate1.Size = new System.Drawing.Size(121, 24);
-			this.combFrameRate1.TabIndex = 5;
-			// 
-			// combCodec1
-			// 
-			this.combCodec1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.combCodec1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.combCodec1.FormattingEnabled = true;
-			this.combCodec1.Items.AddRange(new object[] {
-            "Quicktime Animation",
-            "H.264",
-            "Quicktime Prores Proxy",
-            "Quicktime Prores LT"});
-			this.combCodec1.Location = new System.Drawing.Point(316, 18);
-			this.combCodec1.MOVI_CODEC = SquenceToMovie.MOVIE_CODEC.QTRLE;
-			this.combCodec1.Name = "combCodec1";
-			this.combCodec1.Size = new System.Drawing.Size(182, 24);
-			this.combCodec1.TabIndex = 6;
+			this.tbExportName.AllowDrop = true;
+			this.tbExportName.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.tbExportName.Location = new System.Drawing.Point(97, 87);
+			this.tbExportName.Name = "tbExportName";
+			this.tbExportName.Size = new System.Drawing.Size(241, 23);
+			this.tbExportName.TabIndex = 4;
 			// 
 			// groupBox1
 			// 
@@ -320,15 +282,6 @@
 			this.btnExport.UseVisualStyleBackColor = true;
 			this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
 			// 
-			// tbExportName
-			// 
-			this.tbExportName.AllowDrop = true;
-			this.tbExportName.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.tbExportName.Location = new System.Drawing.Point(97, 87);
-			this.tbExportName.Name = "tbExportName";
-			this.tbExportName.Size = new System.Drawing.Size(241, 23);
-			this.tbExportName.TabIndex = 4;
-			// 
 			// btnExportDir
 			// 
 			this.btnExportDir.AllowDrop = true;
@@ -353,6 +306,57 @@
 			this.tbExportDir.TabIndex = 3;
 			this.tbExportDir.DragDrop += new System.Windows.Forms.DragEventHandler(this.tbExportDir_DragDrop);
 			this.tbExportDir.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+			// 
+			// combCodec1
+			// 
+			this.combCodec1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.combCodec1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.combCodec1.FormattingEnabled = true;
+			this.combCodec1.Items.AddRange(new object[] {
+            "Quicktime Animation",
+            "H.264",
+            "Quicktime Prores Proxy",
+            "Quicktime Prores LT"});
+			this.combCodec1.Location = new System.Drawing.Point(316, 18);
+			this.combCodec1.MOVI_CODEC = SquenceToMovie.MOVIE_CODEC.QTRLE;
+			this.combCodec1.Name = "combCodec1";
+			this.combCodec1.Size = new System.Drawing.Size(182, 24);
+			this.combCodec1.TabIndex = 6;
+			// 
+			// combFrameRate1
+			// 
+			this.combFrameRate1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.combFrameRate1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.combFrameRate1.FormattingEnabled = true;
+			this.combFrameRate1.FRAME_RATE = SquenceToMovie.FRAME_RATE.Fps24;
+			this.combFrameRate1.Items.AddRange(new object[] {
+            "24fps",
+            "23.976fps",
+            "30fps",
+            "29.97fps"});
+			this.combFrameRate1.Location = new System.Drawing.Point(127, 18);
+			this.combFrameRate1.Name = "combFrameRate1";
+			this.combFrameRate1.Size = new System.Drawing.Size(121, 24);
+			this.combFrameRate1.TabIndex = 5;
+			// 
+			// sequenceFileTo1
+			// 
+			this.sequenceFileTo1.BtnOpenSeq = this.btnInputfile;
+			this.sequenceFileTo1.CmbFrameRate = this.combFrameRate1;
+			this.sequenceFileTo1.CombCodec = this.combCodec1;
+			this.sequenceFileTo1.ExportDir = "";
+			this.sequenceFileTo1.ExportName = ".mov";
+			this.sequenceFileTo1.ffmpegPath = "";
+			this.sequenceFileTo1.FRAME_RATE = SquenceToMovie.FRAME_RATE.Fps24;
+			this.sequenceFileTo1.FRAME_RATE_STR = "24fps";
+			this.sequenceFileTo1.IsSound = false;
+			this.sequenceFileTo1.MOVIE_CODEC = SquenceToMovie.MOVIE_CODEC.QTRLE;
+			this.sequenceFileTo1.MOVIE_CODEC_STR = "Quicktime Animation";
+			this.sequenceFileTo1.SequenceFile = "";
+			this.sequenceFileTo1.SoundFile = "";
+			this.sequenceFileTo1.SrcFile = "";
+			this.sequenceFileTo1.TextBox_ExportName = this.tbExportName;
+			this.sequenceFileTo1.TextBox_Seq = this.tbInputFile;
 			// 
 			// Form1
 			// 

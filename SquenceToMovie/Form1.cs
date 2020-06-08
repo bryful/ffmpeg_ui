@@ -60,7 +60,30 @@ namespace SquenceToMovie
 				if (ok) sequenceFileTo1.FRAME_RATE_STR = s;
 				s = pref.GetString("Codec", out ok);
 				if (ok) sequenceFileTo1.MOVIE_CODEC_STR = s;
-				s = 
+				s =   pref.GetString("SequenceFile", out ok);
+				if (ok)
+				{
+					AddInputFile(s);
+				}
+				s =   pref.GetString("ExportDir", out ok);
+				if (ok)
+				{
+					sequenceFileTo1.ExportDir = s;
+					tbExportDir.Text = sequenceFileTo1.ExportDir;
+				}
+				s =   pref.GetString("SoundFile", out ok);
+				if (ok)
+				{
+					sequenceFileTo1.SoundFile = s;
+					tbSound.Text = sequenceFileTo1.SoundFile;
+				}
+				bool b =   pref.GetBool("IsSound", out ok);
+				if (ok)
+				{
+					sequenceFileTo1.IsSound = b;
+					cbIsSound.Checked = sequenceFileTo1.IsSound;
+				}
+
 			}
 			this.Text = Path.GetFileNameWithoutExtension(Application.ExecutablePath);
 			if(sequenceFileTo1.ffmpegPath=="")
@@ -85,6 +108,8 @@ namespace SquenceToMovie
 			pref.SetString("Codec", sequenceFileTo1.MOVIE_CODEC_STR);
 			pref.SetString("SequenceFile", sequenceFileTo1.SequenceFile);
 			pref.SetString("ExportDir", sequenceFileTo1.ExportDir);
+			pref.SetString("SoundFile", sequenceFileTo1.SoundFile);
+			pref.SetBool("IsSound", sequenceFileTo1.IsSound);
 
 			pref.Save();
 
@@ -119,7 +144,7 @@ namespace SquenceToMovie
 				}
 				else
 				{
-					tbInputFile.Text = sequenceFileTo1.Src;
+					//bInputFile.Text = sequenceFileTo1.Src;
 					tbExportDir.Text = sequenceFileTo1.ExportDir;
 					ret = true;
 				}
